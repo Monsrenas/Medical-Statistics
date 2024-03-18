@@ -9,7 +9,7 @@
                     <option value="" disabled selected hidden>Select nomenclator</option>
                     <option value="centers">Medical center</option>
                     <option value="information_type">Type of information</option>
-                    <option value="period">Periods</option>
+                    <option value="periods">Periods</option>
                 </select>
                 
                 @if ($xcoder)
