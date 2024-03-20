@@ -20,7 +20,7 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/', function () {
-        return view('dashboard', ['xcomponent' => "nomenclature"]);
+        return view('dashboard', ['xcomponent' => "dashboard"]);
     })->name('dashboard');
 
     Route::get('/edit', function () {

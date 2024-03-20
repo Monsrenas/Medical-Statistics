@@ -9,4 +9,5 @@ class information_type extends Model
 {
     use HasFactory;
     protected $table = "information_type";
+    protected $fillable = array('name', 'magnitude');
 }

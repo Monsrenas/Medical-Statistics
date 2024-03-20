@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class centers extends Model
 {
     use HasFactory;
+    protected $fillable = array('name');
 }

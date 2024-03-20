@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class statistics extends Model
 {
-    use HasFactory;
+    use HasFactory;    
+
+    protected $fillable = array('yearmontweek',
+                                    'centers_id',
+                                    'information_type_id',
+                                    'value');
 
     public function centers() 
     {

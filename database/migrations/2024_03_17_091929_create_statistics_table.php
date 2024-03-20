@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('statistics', function (Blueprint $table) {
+            $table->id();
             $table->string('yearmontweek',8);
             $table->foreignId('centers_id');
             $table->foreignId('information_type_id');
