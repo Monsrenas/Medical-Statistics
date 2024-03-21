@@ -11,7 +11,7 @@ class Edit extends Component
 {
     use Tools;
    
-    public $xcenter, $xinform, $xmont="";
+    public $xmont="";
     public $editable=false, $xMontly=false, $xvalues=[], $xvalue, $xyear;
     public $xmutabley=true;
 
@@ -88,7 +88,11 @@ class Edit extends Component
                     }
                 }
             }
-            $this->reset('xmont','xvalues','xmutabley');    
+            if (intval($this->xmont)<12) {
+                $this->xmont= $mtn=str_pad(intval($this->xmont)+1, 2,"0", STR_PAD_LEFT);
+            } else { $this->reset('xmont'); }
+
+            $this->reset('xvalues','xmutabley');    
         }
     }
 

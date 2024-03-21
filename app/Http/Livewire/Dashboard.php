@@ -12,8 +12,10 @@ use App\Models\statistics;
 class Dashboard extends Component
 {
     use Tools;
-    public $pestana=[0=>'Graphics',1=>'Tables'], $xactiva=false;
 
+    public $xtablemodel=0;
+    public $pestana=[0=>'Graphics',1=>'Tables'], $xactiva=true;
+    public $xFrom,$xTo;
     public function render()
     {
         $list=$this->TbQuery();
@@ -34,10 +36,22 @@ class Dashboard extends Component
         //1->  (Year, Medical center, Information type, Mont)
 
         return statistics::orderBy('yearmontweek') 
+        ->when(($this->xcenter), function($q){
+                                                return $q->where('centers_id',$this->xcenter);
+                                             })
+        ->when(($this->xinform), function($q){
+                                                return $q->where('information_type_id',$this->xinform);
+                                             }) 
+        ->when(($this->xFrom), function($q) {
+                                                return $q->where(DB::raw("DATE(CONCAT(SUBSTRING(yearmontweek, 1, 6),'01'))"), '>=', $this->xFrom);
+                                             })  
+        ->when(($this->xTo), function($q) {
+                                                return $q->where(DB::raw("DATE(CONCAT(SUBSTRING(yearmontweek, 1, 6),'01'))"), '<=', $this->xTo);
+                                             })  
         ->select('*',DB::raw("SUBSTRING(yearmontweek, 1, 4) as year"),  
                      DB::raw("SUBSTRING(yearmontweek, 1, 6) AS mes"),) 
         ->get()
-        ->groupBy($squema[0])
+        ->groupBy($squema[$this->xtablemodel])
         ->toArray();
 
         
@@ -51,5 +65,9 @@ class Dashboard extends Component
         ->get(); 
 */
 
+    }
+    public function searchReset()
+    {
+        $this->reset('xcenter','xinform','xFrom','xTo');
     }
 }

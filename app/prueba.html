@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Líneas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <body>
     <div style="width: 600px;">
     <canvas id="lineChart" width="800" height="400"></canvas>
@@ -10,12 +18,12 @@
                 data: {
                     labels: valoresX,
                     datasets: [{
-                        label: 'Datos de prueba para la generacion de graficos',
+                        label: 'Datos',
                         data: valoresY,
                         borderColor: 'rgb(75, 192, 192)',
                         fill: false
                     }, {
-                        label: 'Gráfico Para probar todos los elementos a modificar',
+                        label: 'Gráfico',
                         data: valoresGrafico,
                         borderColor: 'rgb(255, 99, 132)',
                         fill: false
@@ -56,3 +64,4 @@
         generarGraficoLineas(valoresX, valoresY, valoresGrafico, valoresGrafico2);
     </script>
 </body>
+</html>

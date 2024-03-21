@@ -6,7 +6,7 @@ trait Tools {
 
     public $centerLs=[], $informLs=[];
     protected $montLs=[];
-    public $meses;
+    public $xcenter, $xinform, $meses;
     public function mount()
     {
         $centerLs=('App\Models\\centers')::all();
