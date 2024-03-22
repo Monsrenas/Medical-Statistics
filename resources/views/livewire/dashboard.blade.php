@@ -1,7 +1,64 @@
 <div class="py-12 h-full">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
+    <script>
+        let chart;
+
+        function generarGraficoLineas(valoresX, valoresY,labels,ventana) {
+            var item='', xDato=[], i=0; 
+            valoresY.forEach(element => {
+                item={
+                        label: labels[i],
+                        data: element,
+                        borderColor: generarColorAleatorio(i),
+                        fill: false
+                    }
+                xDato.push(item);    
+                i++;
+            });
+    
+            var ctx = document.getElementById(ventana).getContext('2d');
+            if (chart) { chart.destroy();}
+            var chart = new Chart(ctx, {
+                type: 'line',   
+                data: {
+                    labels: valoresX,
+                    datasets: xDato
+                }
+            });
+
+        }
+    
+        function generarColorAleatorio(indc) {
+        var coloresBasicos = [
+        "#FF0000", // Rojo
+        "#00FF00", // Verde
+        "#0000FF", // Azul
+        "#FFFF00", // Amarillo
+        "#FF00FF", // Magenta
+        "#00FFFF", // Cian
+        "#800000", // Marrón
+        "#008000", // Verde claro
+        "#000080", // Azul marino
+        "#808080", // Gris
+        "#C0C0C0", // Plata
+        "#FFA500", // Naranja
+        "#A52A2A", // Marrón claro
+        "#800080", // Púrpura
+        "#008080", // Verde oliva
+        "#000000"  // Negro
+    ];
+    
+    // Devuelve un color aleatorio de los 16 colores básicos
+        if (indc>coloresBasicos.length) indc=0;
+        return coloresBasicos[indc];;
+    
+    }
+    
+    </script>
+
+
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="inline py-1   m-0 @if (!$xactiva)py-2 bg-blue-200 @endif text-blue-800 border-solid border-2 border-indigo-800 border-gray-600 border-b-0"
              style="padding-bottom: 5px;">
             <button class="px-4  text-lg w-3/12" n wire:click="$toggle('xactiva')">Graphics</button>
@@ -11,32 +68,30 @@
             <button class="px-4  text-lg w-3/12" n wire:click="$toggle('xactiva')">Tables</button>
         </div>
 
-        
-
-        <div class=" max-w-7xl mx-auto border-solid border-2 border-gray-600 ">
-            <div class="px-10 py-6 w-full flex md:items-center text-lg w-full bg-blue-200 text-blue-800">
+        <div class=" max-w-7xl mx-auto border-solid border-2 border-gray-600 " >
+            <div class="px-10 py-4 w-full flex md:items-center text-lg w-full bg-blue-200 text-blue-800">
 
                 <x-label value="From" />
-                <x-input type="date" class="mx-5 mr-10" wire:model='xFrom' />
+                <x-input type="date" class="mx-5 mr-10 py-0" wire:model='xFrom' style="font-size: .6em;" />
 
                 <x-label value="To" />
-                <x-input type="date" class="ml-5" wire:model='xTo' />
+                <x-input type="date" class="ml-5 py-0" wire:model='xTo' style="font-size: .6em;" />
 
-                <x-label for="meCoder" class="px-4 text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-">Table model</x-label>
-
-                <select name="coder_center" wire:model='xtablemodel'
-                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-max py-2  text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-500">
-                    <option value="0">Basic comparison</option>
-                    <option value="1">Annual Combined</option>
-                </select>
-    
-                <button wire:click="searchReset('xinform')" wire:loading.attr="disabled" class="p-1 mx-20 rounded-md bg-white text-black hover:bg-gray-800  hover:text-white">
+                <button wire:click="searchReset('xinform')" wire:loading.attr="disabled" style="font-size: .7em;"
+                        class="p-1 mx-20 rounded-md bg-white text-black hover:bg-gray-800  hover:text-white float-right">
                     Reset
                 </button>    
             </div>
 
-            <div class="px-10 py-6 w-full flex md:items-center text-lg w-full bg-blue-200 text-blue-800">
+            <div class="px-10 py-2 w-full flex md:items-center text-lg w-full bg-blue-200 text-blue-800">
                 @include('forms.centers_tInfo_select_nav')
+                
+                <x-label for="meCoder" class="pl-20 pr-4 text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-">Table model</x-label>
+                <select name="coder_center" wire:model='xtablemodel' style="font-size: .6em;"
+                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-max py-2  text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-500">
+                    <option value="0">Basic comparison</option>
+                    <option value="1">Annual Combined</option>
+                </select>
             </div>
            
              @include('tables.dash'.$pestana[$xactiva])
@@ -45,3 +100,4 @@
         
     </div>
 </div>
+

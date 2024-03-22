@@ -27,12 +27,12 @@
                         {{substr($montLs[$mtn],0,3)}}
                     </th>
                 @endfor
-                <th class="text-center  bg-gray-300 text-black">Calendar YTD</th>
+                <th class="text-center  bg-gray-300 text-black"></th> {{--Calendar YTD--}}
             </tr>
             <tbody>
                 {{-- Iteration of information --}}
                 @foreach ($dMdc as $iIfmt=>$dIfmt)                  {{-- Iteration of Information type --}}
-                    @php $totalYear=0; @endphp
+                    @php $totalYear=0; $magnitud=("App\Models\\information_type")::find($iIfmt); @endphp
                     <tr>
                         <th class="text-left bg-gray-300 text-black ml-8">
                             {{$informLs[$iIfmt]}}
@@ -58,7 +58,11 @@
                         @endfor
 
                         <td class="text-center px-2 font-bold text-green-700">
+                            @if ($magnitud->magnitude=='%')
+                            {{(round($totalYear/count($dIfmt),2))}} %
+                           @else
                             {{($totalYear)}}
+                           @endif
                         </td>    
                     </tr>
                 @endforeach

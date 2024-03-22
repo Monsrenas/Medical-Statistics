@@ -1,58 +1,76 @@
-<body>
-    <div style="width: 600px;">
-    <canvas id="lineChart" width="800" height="400"></canvas>
-    </div>    
-    <script>
-        function generarGraficoLineas(valoresX, valoresY, valoresGrafico, valoresGrafico2) {
-            var ctx = document.getElementById('lineChart').getContext('2d');
-            var chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: valoresX,
-                    datasets: [{
-                        label: 'Datos de prueba para la generacion de graficos',
-                        data: valoresY,
-                        borderColor: 'rgb(75, 192, 192)',
-                        fill: false
-                    }, {
-                        label: 'Gráfico Para probar todos los elementos a modificar',
-                        data: valoresGrafico,
-                        borderColor: 'rgb(255, 99, 132)',
-                        fill: false
-                    },
-                    {
-                        label: 'Gráfico 2',
-                        data: valoresGrafico2,
-                        borderColor: 'rgb(255, 99, 192)',
-                        fill: false
-                    }]
-                },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Eje X'
-                            }
-                        }],
-                        yAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Eje Y'
-                            }
-                        }]
-                    }
-                }
-            });
-        }
 
-        // Ejemplo de uso:
-        var valoresX = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'];
-        var valoresY = [65, 59, 80, 81, 56];
-        var valoresGrafico = [28, 48, 40, 19, 86];
-        var valoresGrafico2 = [48, 58, 20, 69, 86];
-        generarGraficoLineas(valoresX, valoresY, valoresGrafico, valoresGrafico2);
-    </script>
-</body>
+    <div class="grid grid-cols-3 gap-4" >
+        @foreach ($list as $ndc=>$inic)  {{-- Iteration of medical centers--}}
+        
+         
+          <h1 class="w-full p-1  mb-0 mt-6 font-bold bg-gray-500 text-white col-span-3 ">{{$centerLs[$ndc]}}</h1> {{-- Medical cnter name --}}
+          
+            @foreach ($inic as $iIntp=>$dInft)  {{-- Iteration of information type --}}   
+               {{-- Information type name --}}
+                        
+                        @php  $Axe_X=[]; $AllValue=[]; @endphp
+
+                         <div style="width: 350px;" class="inline float-left m-4" >
+                            {{$informLs[$iIntp]}} 
+                            <canvas id="vtn{{$iIntp}}{{$ndc}}" width="600" height="500"></canvas>
+                        </div>
+
+                        {{-- Write the columns with the names of the months --}}
+                        @for ($i = 1; $i <= 12; $i++)
+                            @php
+                                $mtn=str_pad($i, 2,"0", STR_PAD_LEFT);
+
+                                array_push($Axe_X, $montLs[$mtn]); 
+                            @endphp
+                        @endfor
+                        
+                        @php  
+                           $magnitud=("App\Models\\information_type")::find($iIntp); 
+                           $legenLabel=[];
+                        @endphp
+
+                        {{-- Iteration of years --}}
+                        @foreach ($dInft as $iYrs=>$dYears)                  {{-- Iteration of years --}}
+
+                                @php
+                                    array_push($legenLabel, $iYrs);  
+
+                                    $listValue=[];
+                                @endphp 
+                                @for ($i = 1; $i <= 12; $i++)
+                                    
+                                        @foreach ($dYears as $iMnts=>$dMonts)                  {{-- Iteration of monts --}}
+                                            @php
+                                            $mes=substr(strval($iMnts), -2, 2);   
+                                            @endphp
+
+                                                @if (intval($mes)==$i)
+                                                    @php $totalMonth=0; @endphp
+                                                    @foreach ($dMonts as $dWeek)
+                                                        @php  
+                                                          $totalMonth=$totalMonth+$dWeek['value'];  
+                                                        @endphp
+                                                    @endforeach
+                                                    
+                                                    @php
+                                                        array_push($listValue, $totalMonth);  
+                                                    @endphp 
+                                                            
+                                                @endif    
+                                                                
+                                        @endforeach
+                                @endfor             
+                                    
+                                    @php
+                                        array_push($AllValue, $listValue);  
+                                    @endphp 
+                        @endforeach
+                        
+                @php
+                    echo "<script>";
+                    echo "generarGraficoLineas(".json_encode($Axe_X).", ".json_encode($AllValue).",".json_encode($legenLabel).",'vtn".$iIntp.$ndc."');";    
+                    echo "</script>";    
+                @endphp
+            @endforeach
+        @endforeach
+    </div>

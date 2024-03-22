@@ -10,4 +10,10 @@ class information_type extends Model
     use HasFactory;
     protected $table = "information_type";
     protected $fillable = array('name', 'magnitude');
+
+    public function register()
+    {
+
+        return $this->hasMany(statistics::class,'information_type_id');
+    }
 }

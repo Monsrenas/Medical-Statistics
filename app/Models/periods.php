@@ -10,4 +10,5 @@ class periods extends Model
     use HasFactory;
 
     protected $fillable = array('start', 'ends');
+
 }

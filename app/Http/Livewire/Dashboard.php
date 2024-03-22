@@ -14,8 +14,9 @@ class Dashboard extends Component
     use Tools;
 
     public $xtablemodel=0;
-    public $pestana=[0=>'Graphics',1=>'Tables'], $xactiva=true;
-    public $xFrom,$xTo;
+    public $pestana=[0=>'Graphics',1=>'Tables'], $xactiva=false;
+    
+
     public function render()
     {
         $list=$this->TbQuery();
@@ -30,6 +31,7 @@ class Dashboard extends Component
 
     public function TbQuery()
     {
+        $this->xtablemodel=(!$this->xactiva)?0:$this->xtablemodel;
         $squema=[['centers_id','information_type_id','year','mes'],
                  [ 'year','centers_id','information_type_id','mes']]; 
         //0->  (Medical center, Information type,Year, Mont)
@@ -68,6 +70,11 @@ class Dashboard extends Component
     }
     public function searchReset()
     {
-        $this->reset('xcenter','xinform','xFrom','xTo');
+        $this->reset('xcenter','xinform');
+               // Fecha de hoy
+               $this->xTo = now()->format('Y-m-d');
+
+               // Fecha 4 años antes del 1 de enero
+               $this->xFrom = now()->subYears(4)->startOfYear()->format('Y-m-d');
     }
 }

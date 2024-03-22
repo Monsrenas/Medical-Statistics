@@ -13,7 +13,8 @@ class Edit extends Component
    
     public $xmont="";
     public $editable=false, $xMontly=false, $xvalues=[], $xvalue, $xyear;
-    public $xmutabley=true;
+    public $xmutabley=true, $showDeleteModal=false;
+
 
     public function render()
     {
@@ -33,12 +34,14 @@ class Edit extends Component
 
         if (in_array($campo, ['xcenter', 'xinform', 'xmont','xyear']))
             {
-                    if ($this->editable) $this->loadvalues();
+                if ($this->editable) $this->loadvalues();
             }
     }
 
     public function loadvalues()
     {
+        if ($this->xyear > date('Y')or($this->xyear<1900)) $this->xyear=date('Y'); // Asegurar que no se registre informacion de un tiempo posterior al actual
+
         $this->xvalues=[];
         $yemowe=$this->xyear.$this->xmont;
         $data=statistics::whereRaw("SUBSTRING(yearmontweek, 1, 6) = ?", [$yemowe])->
@@ -58,6 +61,8 @@ class Edit extends Component
 
     public function save()
     {
+        if ($this->xyear > date('Y')or($this->xyear<1900)) $this->xyear=date('Y'); // Asegurar que no se registre informacion de un tiempo posterior al actual
+
         $yemowe=$this->xyear.$this->xmont;
         $nvalue=$this->someValue($this->xvalues);
         if ($this->someValue($this->xvalues))
@@ -106,5 +111,24 @@ class Edit extends Component
     // Verificar si el array resultante tiene elementos
     return count($valoresNoCero) > 0;
 }
+
+    public function deleteValue()
+    {
+        $yemowe=$this->xyear.$this->xmont;
+        foreach ($this->xvalues as $key => $value) {
+            
+                $data=statistics::where('yearmontweek',$yemowe.'0'.$key)->
+                                where('centers_id', $this->xcenter)->
+                                where('information_type_id', $this->xinform)->first();
+                
+                if ($data) {
+                        $data->value=$value;
+                        $data->delete();    
+                } 
+            
+        }
+
+        $this->reset('xvalues','xmutabley','showDeleteModal'); 
+    }
 
 }

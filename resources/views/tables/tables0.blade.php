@@ -25,7 +25,9 @@
                         {{substr($montLs[$mtn],0,3)}}
                     </th>
                 @endfor
-                <th class="text-center  bg-gray-300 text-black">Calendar YTD</th>
+                
+                @php  $magnitud=("App\Models\\information_type")::find($iIntp)   @endphp
+                <th class="text-center  bg-gray-300 text-black">@if ($magnitud->magnitude=='%') Average @else Calendar YTD  @endif</th>
             </tr>
             <tbody>
                 {{-- Iteration of years --}}
@@ -58,7 +60,11 @@
                             </td>
                         @endfor             
                         <td class="text-center px-2 font-bold text-green-700">
-                            {{($totalYear)}}
+                            @if ($magnitud->magnitude=='%')
+                             {{(round($totalYear/count($dYears),2))}} %
+                            @else
+                             {{($totalYear)}}
+                            @endif
                         </td>    
                     </tr>
                 @endforeach

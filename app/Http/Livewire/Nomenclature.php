@@ -20,7 +20,7 @@ class Nomenclature extends Component
     public function render()
     {
         $lista=[];
-        if ($this->xcoder) $lista=($this->modelo)::paginate(10);
+        if ($this->xcoder) $lista=($this->modelo)::paginate(6);
         return view('livewire.nomenclature', compact('lista'));
     }
 

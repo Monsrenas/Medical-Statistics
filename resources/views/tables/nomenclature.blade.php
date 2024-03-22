@@ -22,8 +22,7 @@
                     if ($item->details_id<>$actual){
                         $actual=$item->details_id;
                         $color=!$color;
-                        $i=($i==0)?(1):(($i));
-                    }
+                        $i=($i==0)?(1):(($i));      }
                 @endphp
                 <tr class="{{($color)?'bg-gray-200':'bg-white'}} text-center border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-sky-200 hover:text-black dark:hover:bg-gray-600">
                    {{-- <td class="w-4 text-gray-400">
@@ -40,7 +39,7 @@
                             class="w-full text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-5  text-center mr-2  dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
                             Edit
                         </a>
-                        @if (true)
+                        @if ((!isset($item->register)) or (count($item->register)<=0))
                         <a wire:click="confirmDelete({{ $item->id }},'{{ $item->first_name }} {{ $item->last_name }}')" 
                             class="w-full text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-5  text-center mr-2  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
                             Delete 
