@@ -1,8 +1,9 @@
 @php
-    $xSize=[];    
+    $iSZ=0;
 @endphp
 
-    <div class="grid grid-cols-3 gap-4"  >
+
+    <div class="grid grid-cols-3 gap-4" >
         @foreach ($list as $ndc=>$inic)  {{-- Iteration of medical centers--}}
         
          
@@ -11,13 +12,19 @@
             @foreach ($inic as $iIntp=>$dInft)  {{-- Iteration of information type --}}   
                {{-- Information type name --}}
                         
-                        @php  $Axe_X=[]; $AllValue=[]; @endphp
+                        @php  $Axe_X=[]; $AllValue=[]; 
+                            if (!isset($gSize[$iSZ])) {
+                                $gSize[$iSZ]="";
+                            }
+                        @endphp
 
-                         <div style="width: 350px;" class="inline float-left m-4" >
-                            {{$informLs[$iIntp]}} 
+                         <div class=" p-2 {{$gSize[$iSZ]}}" wire:click="cambia({{$iSZ}})" >
+                            <h1 class="w-full block flex ">{{$informLs[$iIntp]}} </h1>
                             <canvas id="vtn{{$iIntp}}{{$ndc}}" width="600" height="500"></canvas>
                         </div>
-
+                        @php
+                             $iSZ++;
+                        @endphp
                         {{-- Write the columns with the names of the months --}}
                         @for ($i = 1; $i <= 12; $i++)
                             @php
@@ -25,6 +32,7 @@
 
                                 array_push($Axe_X, $montLs[$mtn]); 
                             @endphp
+                            
                         @endfor
                         
                         @php  
@@ -70,10 +78,11 @@
                         @endforeach
                         
                 @php
-                    echo "<script>";
+                    echo "<script>";   
+                    echo "console.log('Salen datos');";    
                     echo "generarGraficoLineas(".json_encode($Axe_X).", ".json_encode($AllValue).",".json_encode($legenLabel).",'vtn".$iIntp.$ndc."');";    
                     echo "</script>";    
                 @endphp
             @endforeach
-        @endforeach
+        @endforeach            
     </div>
