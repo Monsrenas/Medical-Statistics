@@ -53,7 +53,11 @@
             </x-danger-button>
         </x-slot>
     </x-dialog-modal>
+
+    <div wire:loading.delay class="z-auto static flex fixed left-0 top-0 bottom-0 w-full bg-gray-400 bg-opacity-50 align-middle m-auto p-auto">
+        <img src="https://paladins-draft.com/img/circle_loading.gif" width="64" height="64" class="m-auto mt-1/4">
     </div>
+</div>
 
     <style>
              /* The switch - the box around the slider */

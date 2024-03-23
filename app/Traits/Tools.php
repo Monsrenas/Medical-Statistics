@@ -5,7 +5,6 @@ use Illuminate\Support\Carbon;
 trait Tools {
 
     public $centerLs=[], $informLs=[];
-    protected $montLs=[];
     public $xcenter, $xinform, $meses;
     public $xFrom,$xTo;
     

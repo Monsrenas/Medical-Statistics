@@ -1,5 +1,4 @@
- 
-@if ($editable)
+ @if ($editable)
      <div class="p-6" style="box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);">                
          @if ($xmutabley)
              <x-label value="Weekly values" class=" inline px-4 text-gray-500 font-bold md:text-left mb-1 md:mb-0 "/>
@@ -50,11 +49,13 @@
                  </tr>
              </table>
          </div>  
-         <div class="w-full text-center mt-10">
-             <x-button wire:click="save" wire:loading.attr="disabled" class="bg-green-700 hover:bg-green-800">
-                 Save
-             </x-button>
-         </div>
-     
+
+         @if ($xvalues)
+            <div class="w-full text-center mt-10">
+                <x-button wire:click="save" wire:loading.attr="disabled" class="bg-green-700 hover:bg-green-800">
+                    Save
+                </x-button>
+            </div>
+         @endif   
     </div>
 @endif            

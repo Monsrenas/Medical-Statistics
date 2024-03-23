@@ -1,5 +1,8 @@
+@php
+    $xSize=[];    
+@endphp
 
-    <div class="grid grid-cols-3 gap-4" >
+    <div class="grid grid-cols-3 gap-4"  >
         @foreach ($list as $ndc=>$inic)  {{-- Iteration of medical centers--}}
         
          

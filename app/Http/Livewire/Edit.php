@@ -20,23 +20,30 @@ class Edit extends Component
     public function render()
     {
         
-        $montLs=[];
+        $montLs=$this->ListMonts();
+   
+
+        return view('livewire.edit', compact('montLs'));
+    }
+
+    public function ListMonts()
+    {
         for ($i = 1; $i <= 12; $i++) {
             $mtn=str_pad($i, 2,"0", STR_PAD_LEFT);
             $montLs[$mtn] = Carbon::createFromFormat('m', $i)->format('F');
         }
 
-        return view('livewire.edit', compact('montLs'));
+        return  $montLs;
     }
 
     public function updated($campo)
     {
         $this->editable=( ($this->xcenter)and($this->xinform)and($this->xmont));
 
-        if (in_array($campo, ['xcenter', 'xinform', 'xmont','xyear']))
-            {
-                if ($this->editable) $this->loadvalues();
-            }
+        if (in_array($campo, ['xcenter', 'xinform', 'xmont','xyear'])) { if ($this->editable) $this->loadvalues(); }
+
+        if (($campo='ximport')) {  if ($this->ximport) {$this->reset('xvalues','xmutabley','xmont','editable');}
+                                   else {$this->reset('importTable');}  }    
     }
 
     public function loadvalues()
@@ -66,9 +73,9 @@ class Edit extends Component
 
         $yemowe=$this->xyear.$this->xmont;
         $nvalue=$this->someValue($this->xvalues);
+    
         if ($this->someValue($this->xvalues))
         {
-
             /* Limitar que solo se guarden valores mensuales o semanales y no ambos */
             if ((count($this->xvalues)>1)and($this->xMontly)){
                 $this->xvalues[0]=0;
@@ -102,6 +109,25 @@ class Edit extends Component
         }
     }
 
+    public function saveImportedDate()
+    {
+        $actualYear=$this->xyear;
+        
+        for ($i = 1; $i <= count($this->importTable)-1; $i++) {   
+            $this->xyear=$this->importTable[$i][0];
+            for ($y = 1; $y <= count($this->importTable[$i])-1; $y++)
+            {
+                $this->xmont=str_pad($y, 2,"0", STR_PAD_LEFT);;
+                $this->xvalues[0]= number_format((float)$this->importTable[$i][$y], 2, '.', '');
+                $this->save();
+            }
+        }
+
+        $this->xyear=$actualYear;
+        $this->reset('importTable', 'xmont');    
+
+    }
+
     public function importarDatos()
     {
         // Separar los datos del textarea por filas
@@ -114,9 +140,18 @@ class Edit extends Component
         foreach ($filas as $fila) {
             // Separar los datos de cada fila por columnas
             $columnas = explode("\t", $fila);
+        
+            $first=((intval($columnas[0])>=1900)and(intval($columnas[0])<=3000));
+            
+            if (count($datosImportados)<=0) {
+                if ($this->buscarCoincidenciaNombreMes($columnas)) {$first=true;}
+                else { $datosImportados[]=array_merge([''], array_slice(array_values($this->ListMonts()),0,count($columnas)-1));}
+            }
 
-            // Agregar las columnas a los datos importados
-            $datosImportados[] = $columnas;
+            if ($first) {
+                // Agregar las columnas a los datos importados
+                $datosImportados[] = $columnas;
+            }
         }
 
         // Hacer algo con los datos importados (guardar en la base de datos, por ejemplo)
@@ -125,6 +160,19 @@ class Edit extends Component
         // Limpiar el textarea después de importar los datos
         $this->importData = '';
         $this->importTable=$datosImportados;
+    }
+
+    public function buscarCoincidenciaNombreMes($columnas){
+        $montLs=$this->ListMonts();
+        foreach ($columnas as $key1 => $texto) {
+            foreach ($montLs as $key => $value) { 
+               
+                if ((gettype((strpos($value,$texto)))==="integer")and($texto)) {
+                    
+                    return true;}
+            }
+        } 
+       return false;
     }
 
     public function someValue($array)
