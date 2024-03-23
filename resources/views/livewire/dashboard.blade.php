@@ -1,62 +1,6 @@
 <div class="py-12 h-full">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        let chart;
-
-        function generarGraficoLineas(valoresX, valoresY,labels,ventana) {
-            var item='', xDato=[], i=0; 
-            valoresY.forEach(element => {
-                item={
-                        label: labels[i],
-                        data: element,
-                        borderColor: generarColorAleatorio(i),
-                        fill: false
-                    }
-                xDato.push(item);    
-                i++;
-            });
-    
-            var ctx = document.getElementById(ventana).getContext('2d');
-            if (chart) { chart.destroy();}
-            var chart = new Chart(ctx, {
-                type: 'line',   
-                data: {
-                    labels: valoresX,
-                    datasets: xDato
-                }
-            });
-
-        }
-    
-        function generarColorAleatorio(indc) {
-        var coloresBasicos = [
-        "#FF0000", // Rojo
-        "#00FF00", // Verde
-        "#0000FF", // Azul
-        "#FFFF00", // Amarillo
-        "#FF00FF", // Magenta
-        "#00FFFF", // Cian
-        "#800000", // Marrón
-        "#008000", // Verde claro
-        "#000080", // Azul marino
-        "#808080", // Gris
-        "#C0C0C0", // Plata
-        "#FFA500", // Naranja
-        "#A52A2A", // Marrón claro
-        "#800080", // Púrpura
-        "#008080", // Verde oliva
-        "#000000"  // Negro
-    ];
-    
-    // Devuelve un color aleatorio de los 16 colores básicos
-        if (indc>coloresBasicos.length) indc=0;
-        return coloresBasicos[indc];;
-    
-    }
-    
-    </script>
-
+    <script src="/build/assets/funciones.js"></script>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="inline py-1   m-0 @if (!$xactiva)py-2 bg-blue-200 @endif text-blue-800 border-solid border-2 border-indigo-800 border-gray-600 border-b-0"

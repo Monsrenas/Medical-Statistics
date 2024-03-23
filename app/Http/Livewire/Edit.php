@@ -12,8 +12,9 @@ class Edit extends Component
     use Tools;
    
     public $xmont="";
-    public $editable=false, $xMontly=false, $xvalues=[], $xvalue, $xyear;
+    public $editable=false, $xMontly=false, $xvalues=[], $xvalue, $xyear, $ximport=false;
     public $xmutabley=true, $showDeleteModal=false;
+    public $importData="", $importTable=[];
 
 
     public function render()
@@ -101,16 +102,41 @@ class Edit extends Component
         }
     }
 
-    public function someValue($array)
-{
-    // Filtrar los valores diferentes de cero
-    $valoresNoCero = array_filter($array, function ($valor) {
-        return $valor != 0;
-    });
+    public function importarDatos()
+    {
+        // Separar los datos del textarea por filas
+        $filas = explode("\n", $this->importData);
 
-    // Verificar si el array resultante tiene elementos
-    return count($valoresNoCero) > 0;
-}
+        // Inicializar un array para almacenar los datos importados
+        $datosImportados = [];
+
+        // Recorrer cada fila
+        foreach ($filas as $fila) {
+            // Separar los datos de cada fila por columnas
+            $columnas = explode("\t", $fila);
+
+            // Agregar las columnas a los datos importados
+            $datosImportados[] = $columnas;
+        }
+
+        // Hacer algo con los datos importados (guardar en la base de datos, por ejemplo)
+        // Aquí puedes utilizar el array $datosImportados como desees
+
+        // Limpiar el textarea después de importar los datos
+        $this->importData = '';
+        $this->importTable=$datosImportados;
+    }
+
+    public function someValue($array)
+    {
+        // Filtrar los valores diferentes de cero
+        $valoresNoCero = array_filter($array, function ($valor) {
+            return $valor != 0;
+        });
+
+        // Verificar si el array resultante tiene elementos
+        return count($valoresNoCero) > 0;
+    }
 
     public function deleteValue()
     {

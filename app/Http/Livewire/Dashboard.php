@@ -15,7 +15,6 @@ class Dashboard extends Component
 
     public $xtablemodel=0;
     public $pestana=[0=>'Graphics',1=>'Tables'], $xactiva=false;
-    
 
     public function render()
     {
@@ -68,6 +67,7 @@ class Dashboard extends Component
 */
 
     }
+
     public function searchReset()
     {
         $this->reset('xcenter','xinform');
