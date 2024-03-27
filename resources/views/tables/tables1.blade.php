@@ -44,7 +44,6 @@
                                     @php
                                     $mes=substr(strval($iMnts), -2, 2);   
                                     @endphp
-
                                     
                                     @if (intval($mes)==$i)
                                         @php $totalMonth=0; @endphp
@@ -59,7 +58,7 @@
 
                         <td class="text-center px-2 font-bold text-green-700">
                             @if ($magnitud->magnitude=='%')
-                            {{(round($totalYear/count($dIfmt),2))}} %
+                            {{(round($totalYear/count($dIfmt),2))}}
                            @else
                             {{($totalYear)}}
                            @endif

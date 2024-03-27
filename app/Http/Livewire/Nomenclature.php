@@ -20,7 +20,7 @@ class Nomenclature extends Component
     public function render()
     {
         $lista=[];
-        if ($this->xcoder) $lista=($this->modelo)::paginate(6);
+        if ($this->xcoder) {$lista=($this->modelo)::paginate(6);}
         return view('livewire.nomenclature', compact('lista'));
     }
 
@@ -31,11 +31,11 @@ class Nomenclature extends Component
 
     public function save() {
         $vldt=$this->validate(['field.*'=> 'required']);
-        
-        if (isset($vldt['field'])and (count($vldt['field'])==count($this->columna)-3)){
+    
+        if (isset($vldt['field'])and (count($vldt['field'])==count($this->columna))){
         
                 for ($i = 1; $i <= count($this->field); $i++) {
-                    $datos[$this->columna[$i]]=$this->field[$i]; 
+                    $datos[$this->columna[$i-1]]=$this->field[$i]; 
                 }
                 if ($this->postToEdit=="") {
                     $this->postToEdit=($this->modelo)::create($datos);
@@ -54,14 +54,14 @@ class Nomenclature extends Component
 
     public function edit($postId){
         $this->postToEdit = ($this->modelo)::find($postId);
-        $this->field=[];
+        $this->field=array();
+
         if ($this->postToEdit) {
-            for ($i = 1; $i <= count($this->columna)-3; $i++) {
-               $this->field[$i]=$this->postToEdit[$this->columna[$i]];
+            for ($i = 0; $i <= count($this->columna)-1; $i++) {
+               $this->field[$i+1]=$this->postToEdit[$this->columna[$i]];
             }
  
         }
-       
         $this->open = true; 
 
     }
@@ -70,7 +70,8 @@ class Nomenclature extends Component
         $this->modelo="App\Models\\".$this->xcoder;
         if ($this->xcoder) {
             $modelo = new ($this->modelo);    
-            $this->columna = $modelo->getConnection()->getSchemaBuilder()->getColumnListing($modelo->getTable());   
+            //$this->columna = $modelo->getConnection()->getSchemaBuilder()->getColumnListing($modelo->getTable());   
+            $this->columna=$modelo->getFillable();
         }
         $this->resetPage();
     }

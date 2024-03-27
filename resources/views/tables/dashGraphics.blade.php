@@ -1,5 +1,6 @@
 @php
     $iSZ=0;
+    $xScripts=[];
 @endphp
 
 
@@ -18,7 +19,8 @@
                             }
                         @endphp
 
-                         <div class=" p-2 {{$gSize[$iSZ]}}" wire:click="cambia({{$iSZ}})" >
+                         <div class=" p-2 {{$gSize[$iSZ]}}" wire:click="cambia({{$iSZ}})" id="Mac{{$iIntp}}{{$ndc}}" >
+                    
                             <h1 class="w-full block flex ">{{$informLs[$iIntp]}} </h1>
                             <canvas id="vtn{{$iIntp}}{{$ndc}}" width="600" height="500"></canvas>
                         </div>
@@ -74,15 +76,27 @@
                                     
                                     @php
                                         array_push($AllValue, $listValue);  
+                           
                                     @endphp 
                         @endforeach
                         
                 @php
-                    echo "<script>";   
-                    echo "console.log('Salen datos');";    
-                    echo "generarGraficoLineas(".json_encode($Axe_X).", ".json_encode($AllValue).",".json_encode($legenLabel).",'vtn".$iIntp.$ndc."');";    
-                    echo "</script>";    
+                    $xScripts[]=" generarGraficoLineas(".json_encode($Axe_X).", ".json_encode($AllValue).",".json_encode($legenLabel).",'vtn".$iIntp.$ndc."');"
+                      
                 @endphp
             @endforeach
-        @endforeach            
+        @endforeach    
+
+                     
+        @php
+
+         echo "<script>"; 
+        
+           
+         foreach ($xScripts as $key => $value) {
+            echo $value;
+         }
+         echo "</script>"; 
+        @endphp
+
     </div>

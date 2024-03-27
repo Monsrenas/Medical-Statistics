@@ -61,7 +61,7 @@ class Edit extends Component
                         $this->xvalues[ substr($value->yearmontweek, -1,1)]=$value->value;
                     }    
 
-            if (count($data)>1){ $this->xMontly=true; } else {$this->xMontly=false;}
+            if (!isset($this->xvalues[0])){ $this->xMontly=true; } else {$this->xMontly=false;}
             $this->xmutabley=false;       
         } else {        $this->xmutabley=true;         }
         
@@ -79,16 +79,16 @@ class Edit extends Component
             /* Limitar que solo se guarden valores mensuales o semanales y no ambos */
             if ((count($this->xvalues)>1)and($this->xMontly)){
                 $this->xvalues[0]=0;
-            } else { $this->xvalues=[$this->xvalues[0]]; }
+            }
 
             foreach ($this->xvalues as $key => $value) {
-                if ($value<>0){
+                if (intval($value)<>0){
                     $data=statistics::where('yearmontweek',$yemowe.'0'.$key)->
                                       where('centers_id', $this->xcenter)->
                                       where('information_type_id', $this->xinform)->first();
                     
                     if ($data) {
-                            $data->value=$value;
+                            $data->value=(intval($value));
                             $data->update();
                         
                     } else {
@@ -96,7 +96,7 @@ class Edit extends Component
                             'yearmontweek' => $yemowe.'0'.$key,
                             'centers_id'=>$this->xcenter,
                             'information_type_id'=>$this->xinform,
-                            'value'=>$value
+                            'value'=>intval($value)
                         ]);
                     }
                 }

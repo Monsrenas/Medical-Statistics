@@ -61,7 +61,7 @@
                         @endfor             
                         <td class="text-center px-2 font-bold text-green-700">
                             @if ($magnitud->magnitude=='%')
-                             {{(round($totalYear/count($dYears),2))}} %
+                             {{(round($totalYear/count($dYears),2))}}
                             @else
                              {{($totalYear)}}
                             @endif

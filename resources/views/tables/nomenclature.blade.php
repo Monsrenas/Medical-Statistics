@@ -4,8 +4,9 @@
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
+                <th></th>
                 @foreach ($columna as $item)
-                <th scope="col" class="px-2 py-3">
+                <th scope="col" class="px-2 py-3 text-center">
                     {{$item}}
                 </th>
                 @endforeach
@@ -25,9 +26,9 @@
                         $i=($i==0)?(1):(($i));      }
                 @endphp
                 <tr class="{{($color)?'bg-gray-200':'bg-white'}} text-center border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-sky-200 hover:text-black dark:hover:bg-gray-600">
-                   {{-- <td class="w-4 text-gray-400">
-                        {{$i++}}
-                    </td> --}}
+                    <td class="w-4 text-gray-400">
+                        {{$item["id"]}}
+                    </td> 
                     @foreach ($columna as $colu)
                         <td scope="col" class="px-2 py-3">
                             {{$item[$colu]}}

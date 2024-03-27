@@ -15,7 +15,7 @@ class Dashboard extends Component
 
     public $xtablemodel=0;
     public $pestana=[0=>'Graphics',1=>'Tables'], $xactiva=false;
-    public $gSize=[];
+    public $gSize=[], $xScripts=[];
 
     public function render()
     {
@@ -24,6 +24,10 @@ class Dashboard extends Component
         for ($i = 1; $i <= 12; $i++) {
             $mtn=str_pad($i, 2,"0", STR_PAD_LEFT);
             $montLs[$mtn] = Carbon::createFromFormat('m', $i)->format('F');
+
+            $this->emit('reloadClassCSs');
+
+
         }
 
         return view('livewire.dashboard',compact(['list','montLs']));
@@ -87,7 +91,7 @@ class Dashboard extends Component
         if ($this->gSize[$value]=="") {$this->gSize = array_fill(0, count($this->gSize), "");
 
         $this->gSize[$value]="z-auto static flex fixed 
-                                top-0 bottom-0  m-10 mx-auto 
+                                top-0 bottom-0  m-10  
                                 align-middle items-center justify-center   
                                 bg-white border-solid border-2 border-indigo-800
                                 shadow-2xl sm:rounded-lg";} else {

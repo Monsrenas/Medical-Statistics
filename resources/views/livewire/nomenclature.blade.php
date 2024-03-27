@@ -2,11 +2,11 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8"> 
         <div class="w-full  flow-root">
             <div class="w-full flex md:items-center mb-6">
-                <x-label for="meCoder" class="px-4 text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-">Nomenclator</x-label>
+                <x-label for="meCoder" class="px-4 text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-">Nomenclature</x-label>
 
                 <select name="coder_type" id="meCoder" name="meCoder" wire:model='xcoder'
                     class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-max py-2  text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-500">
-                    <option value="" disabled selected hidden>Select nomenclator</option>
+                    <option value="" disabled selected hidden>Select</option>
                     <option value="centers">Medical center</option>
                     <option value="information_type">Type of information</option>
                     <option value="periods">Periods</option>
@@ -41,7 +41,7 @@
                 @endif
             </x-slot>
             <x-slot name='footer'>
-                @if (isset($field)and(count($field)==count($columna)-3))
+                @if (isset($field)and(count($field)==count($columna)))
                     
                 <x-secondary-button wire:click="save" wire:loading.attr="disabled">
                     Save

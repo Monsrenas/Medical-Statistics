@@ -11,10 +11,10 @@
                 
                 <div class="flex mx-auto grid grid-cols-2 gap-4 md:items-center">
                     @if (!$ximport)
-                    <x-label for="coder_mont" class="text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-">Mont</x-label>
+                    <x-label for="coder_mont" class="text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-">Month</x-label>
                         <select name="coder_mont" wire:model='xmont' style="font-size: .6em;"
                             class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-max py-2  text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-500">
-                            <option value=""  selected hidden>Select mont</option>
+                            <option value=""  selected >All</option>
                             @foreach  ($montLs as $key => $colu)
                             <option value="{{$key}}">{{$colu}}</option>
                             @endforeach

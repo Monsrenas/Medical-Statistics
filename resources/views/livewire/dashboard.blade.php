@@ -1,11 +1,9 @@
 <div class="py-12 h-full">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="/build/assets/funciones.js"></script>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="inline py-1   m-0 @if (!$xactiva)py-2 bg-blue-200 @endif text-blue-800 border-solid border-2 border-indigo-800 border-gray-600 border-b-0"
              style="padding-bottom: 5px;">
-            <button class="px-4  text-lg w-3/12" n wire:click="$toggle('xactiva')">Graphics</button>
+            <button class="px-4  text-lg w-3/12" n wire:click="$toggle('xactiva')">Graphs</button>
         </div>
         <div class="inline  py-1 m-0 @if ($xactiva) text-bold py-2 bg-blue-200 @endif text-blue-800 border-solid border-2 border-indigo-800 border-gray-600 border-b-0" 
              style="margin-left: -2px; padding-bottom: 5px;">
