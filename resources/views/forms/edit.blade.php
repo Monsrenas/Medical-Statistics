@@ -26,7 +26,7 @@
                         <th class="px-10"> Values</th>
                         @for ($i = 1; $i <= 4; $i++)
                         <td>
-                            <input type="number" wire:model='xvalues.{{$i}}' placeholder="0.00" style=" border: 0;" class="px-1 text-center">
+                            <input type="number" wire:model.lazy='xvalues.{{$i}}' placeholder="0.00" style=" border: 0;" class="px-1 text-center">
                         </td>  
                         @endfor
                     
@@ -35,7 +35,7 @@
                      <tr>
                          <th class="px-10"> Value</th>
                          <td>
-                             <input type="number" wire:model='xvalues.0' placeholder="0.00" style=" border: 0;" class="px-1 text-center">
+                             <input type="number" wire:model.lazy='xvalues.0' placeholder="0.00" style=" border: 0;" class="px-1 text-center">
                          </td>  
                  @endif  
                      @if (!$xmutabley)

@@ -71,7 +71,8 @@ class Edit extends Component
     {
         if ($this->xyear > date('Y')or($this->xyear<1900)) $this->xyear=date('Y'); // Asegurar que no se registre informacion de un tiempo posterior al actual
 
-        $yemowe=$this->xyear.$this->xmont;
+        $yemowe=substr($this->xyear, 0, 4).$this->xmont;
+        
         $nvalue=$this->someValue($this->xvalues);
     
         if ($this->someValue($this->xvalues))

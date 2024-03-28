@@ -15,7 +15,7 @@ class Dashboard extends Component
 
     public $xtablemodel=0;
     public $pestana=[0=>'Graphics',1=>'Tables'], $xactiva=false;
-    public $gSize=[], $xScripts=[];
+    public $gSize=[], $xScripts=[], $oldWindows=[];
 
     public function render()
     {

@@ -17,9 +17,10 @@
                             if (!isset($gSize[$iSZ])) {
                                 $gSize[$iSZ]="";
                             }
+                            $oldwindows[]='Mac'.$iIntp.$ndc;
                         @endphp
 
-                         <div class=" p-2 {{$gSize[$iSZ]}}" wire:click="cambia({{$iSZ}})" id="Mac{{$iIntp}}{{$ndc}}" >
+                         <div class="p-2 {{$gSize[$iSZ]}}" wire:click="cambia({{$iSZ}})" wire:ignore id="Mac{{$iIntp}}{{$ndc}}" >
                     
                             <h1 class="w-full block flex ">{{$informLs[$iIntp]}} </h1>
                             <canvas id="vtn{{$iIntp}}{{$ndc}}" width="600" height="500"></canvas>
