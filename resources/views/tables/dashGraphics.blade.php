@@ -1,6 +1,8 @@
 @php
     $iSZ=0;
     $xScripts=[];
+
+    echo "windowRelease(".json_encode($oldWindows).")";
 @endphp
 
 
@@ -17,7 +19,7 @@
                             if (!isset($gSize[$iSZ])) {
                                 $gSize[$iSZ]="";
                             }
-                            $oldwindows[]='Mac'.$iIntp.$ndc;
+                            $oldWindows[]='Mac'.$iIntp.$ndc;
                         @endphp
 
                          <div class="p-2 {{$gSize[$iSZ]}}" wire:click="cambia({{$iSZ}})" wire:ignore id="Mac{{$iIntp}}{{$ndc}}" >
