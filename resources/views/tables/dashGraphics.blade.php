@@ -1,12 +1,8 @@
-@php
-    $iSZ=0;
-    $xScripts=[];
-
-    echo "windowRelease(".json_encode($oldWindows).")";
-@endphp
-
-
-    <div class="grid grid-cols-3 gap-4" >
+<div class="grid grid-cols-3 gap-4" >
+    @php
+        $iSZ=0;
+        $xScripts=[];
+    @endphp
         @foreach ($list as $ndc=>$inic)  {{-- Iteration of medical centers--}}
         
          
@@ -19,14 +15,16 @@
                             if (!isset($gSize[$iSZ])) {
                                 $gSize[$iSZ]="";
                             }
-                            $oldWindows[]='Mac'.$iIntp.$ndc;
+                            $oldWindows[$iSZ]='Mac'.$iIntp.$ndc;
                         @endphp
 
-                         <div class="p-2 {{$gSize[$iSZ]}}" wire:click="cambia({{$iSZ}})" wire:ignore id="Mac{{$iIntp}}{{$ndc}}" >
+                         <div class="p-2 {{$gSize[$iSZ]}}" wire:click="cambia({{$iSZ}})" id="Mac{{$iIntp}}{{$ndc}}" >
                     
                             <h1 class="w-full block flex ">{{$informLs[$iIntp]}} </h1>
                             <canvas id="vtn{{$iIntp}}{{$ndc}}" width="600" height="500"></canvas>
+
                         </div>
+
                         @php
                              $iSZ++;
                         @endphp
@@ -85,21 +83,19 @@
                         
                 @php
                     $xScripts[]=" generarGraficoLineas(".json_encode($Axe_X).", ".json_encode($AllValue).",".json_encode($legenLabel).",'vtn".$iIntp.$ndc."');"
-                      
                 @endphp
             @endforeach
         @endforeach    
-
-                     
         @php
-
-         echo "<script>"; 
-        
-           
-         foreach ($xScripts as $key => $value) {
+            echo "<script defer>"; 
+            foreach ($xScripts as $key => $value) {
             echo $value;
-         }
-         echo "</script>"; 
-        @endphp
+            }
+            echo "</script>"; 
+       @endphp
+        
+</div>
 
-    </div>
+               
+      
+ 

@@ -96,7 +96,7 @@ class Dashboard extends Component
                                 bg-white border-solid border-2 border-indigo-800
                                 shadow-2xl sm:rounded-lg";} else {
             $this->gSize[$value]="";}
-        
     }
+
 
 }
