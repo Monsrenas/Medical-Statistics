@@ -33,10 +33,11 @@
                     class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-max py-2  text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-500">
                     <option value="0">Basic comparison</option>
                     <option value="1">Annual Combined</option>
+                    <option value="2">Trend</option>
                 </select>
             </div>
            
-             @include('tables.dash'.$pestana[$xactiva])
+             @include('tables.dash'.$pestana[$xactiva.$xtablemodel])
     
         </div>
         

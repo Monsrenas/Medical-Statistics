@@ -26,7 +26,12 @@
                                         type: 'line',   
                                         data: {
                                             labels: valoresX,
-                                            datasets: xDato
+                                            datasets: xDato,
+                                            trendlineLinear: {
+                                                style: "#3e95cd",
+                                                lineStyle: "line",
+                                                width: 1
+                                              }
                                         },options: {
                                             plugins: {
                                                 legend: {

@@ -14,7 +14,7 @@ class Dashboard extends Component
     use Tools;
 
     public $xtablemodel=0;
-    public $pestana=[0=>'Graphics',1=>'Tables'], $xactiva=false;
+    public $pestana=[0=>'Graphics',10=>'Tables',11=>'Tables',12=>'Tables'], $xactiva=true;
     public $gSize=[], $xScripts=[], $oldWindows=[];
 
     public function render()
@@ -37,7 +37,8 @@ class Dashboard extends Component
     {
         $this->xtablemodel=(!$this->xactiva)?0:$this->xtablemodel;
         $squema=[['centers_id','information_type_id','year','mes'],
-                 [ 'year','centers_id','information_type_id','mes']]; 
+                 [ 'year','centers_id','information_type_id','mes'],
+                 ['centers_id','information_type_id','year','mes'],]; 
         //0->  (Medical center, Information type,Year, Mont)
         //1->  (Year, Medical center, Information type, Mont)
 
