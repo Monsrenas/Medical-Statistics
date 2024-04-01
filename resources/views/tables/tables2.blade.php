@@ -1,7 +1,6 @@
 <div>
     @foreach ($list as $ndc=>$inic)  {{-- Iteration of medical centers--}}
     
-    
     <h1 class="w-full p-1  mb-0 mt-6 font-bold bg-gray-500 text-white">{{$centerLs[$ndc]}}</h1> {{-- Medical cnter name --}}
         @foreach ($inic as $iIntp=>$dInft)  {{-- Iteration of information type --}}
         <h2 class="w-full px-1  mb-0 mt-2 font-bold bg-gray-400  text-black">{{$informLs[$iIntp]}}</h2>
@@ -50,12 +49,10 @@
                                                 
                                                 {{($totalMonth)}}
                                                         
-                                            @endif    
-                                                            
+                                            @endif              
                                     @endforeach
                                 </td>
-                            @endfor              
-                       
+                            @endfor            
                     @endforeach
                     </tr>
                 </tbody>
@@ -63,11 +60,5 @@
             </table>
         </div>
         @endforeach
-    @endforeach
-    
-    
-    
-    @php
-    //dd($list);    
-    @endphp
-    </div>
+    @endforeach    
+</div>

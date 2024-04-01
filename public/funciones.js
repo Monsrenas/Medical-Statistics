@@ -1,7 +1,7 @@
 
     let chart;
 
-    function generarGraficoLineas(valoresX, valoresY,labels,ventana) {
+    function generarGraficoLineas(valoresX, valoresY,labels,ventana,tipo) {
         var item='', xDato=[], i=0; 
       
         valoresY.forEach(element => {
@@ -15,7 +15,7 @@
             i++;
         });
 
-        crearDivSiNoExiste(ventana);
+        crearDivSiNoExiste(ventana,tipo);
 
         var ctx = document.getElementById(ventana).getContext('2d');
         
@@ -35,7 +35,7 @@
                                         },options: {
                                             plugins: {
                                                 legend: {
-                                                    display: true,
+                                                    display: ((tipo=='Tre')?false:true),
                                                     position: 'bottom'
                                                 }
                                             }
@@ -76,8 +76,8 @@
     }
 
     // Función para crear un nuevo div si no existe
-    function crearDivSiNoExiste(id) {
-        padre="Mac"+id.substring(3,id.length );
+    function crearDivSiNoExiste(id,tipo) {
+        padre=tipo+id.substring(3,id.length );
         vpdr=document.getElementById(padre);
 
         contenido="";
@@ -86,8 +86,15 @@
         if (!elementoExiste(id)) {
             var nuevoDiv = document.createElement('canvas');
             nuevoDiv.id = id;
-            nuevoDiv.width="600";
-            nuevoDiv.height="500";
+          
+            if (tipo=='Tre'){
+                    nuevoDiv.width="100%";
+                    nuevoDiv.height="300";} else 
+                {
+
+                    nuevoDiv.width="600";
+                    nuevoDiv.height="500";
+                }
             nuevoDiv.textContent = contenido;
             vpdr.appendChild(nuevoDiv);
         } else {

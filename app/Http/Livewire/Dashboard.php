@@ -13,8 +13,8 @@ class Dashboard extends Component
 {
     use Tools;
 
-    public $xtablemodel=0;
-    public $pestana=[0=>'Graphics',10=>'Tables',11=>'Tables',12=>'Tables'], $xactiva=true;
+    public $xtablemodel=2;
+    public $pestana=[0=>'Graphics',10=>'Tables',11=>'Tables',12=>'Tables',2=>'Graphics'], $xactiva=false;
     public $gSize=[], $xScripts=[], $oldWindows=[];
 
     public function render()
@@ -35,7 +35,9 @@ class Dashboard extends Component
 
     public function TbQuery()
     {
-        $this->xtablemodel=(!$this->xactiva)?0:$this->xtablemodel;
+
+        if ((!$this->xactiva)and($this->xtablemodel<2)) {  $this->xtablemodel=(!$this->xactiva)?0:$this->xtablemodel; }
+
         $squema=[['centers_id','information_type_id','year','mes'],
                  [ 'year','centers_id','information_type_id','mes'],
                  ['centers_id','information_type_id','year','mes'],]; 
