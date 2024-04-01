@@ -3,17 +3,24 @@
 
     function generarGraficoLineas(valoresX, valoresY,labels,ventana,tipo) {
         var item='', xDato=[], i=0; 
-      
+        
+        if (tipo=="Tre"){
+        Trend=calcTrend( valoresY[0]);
+        valoresY.push(Trend);} 
+        
         valoresY.forEach(element => {
             item={
                     label: labels[i],
                     data: element,
-                    borderColor: generarColorAleatorio(i),
+                    borderColor: ((tipo=="Tre")&&(i>0))?"gray":generarColorAleatorio(i),
+                    pointRadius: ((tipo=="Tre")&&(i>0))?0:4,
                     fill: false
                 }
             xDato.push(item);    
             i++;
         });
+
+        
 
         crearDivSiNoExiste(ventana,tipo);
 
@@ -110,3 +117,29 @@
             elemento.remove();
         }
     }
+
+    function calcTrend(datos)  {
+             const n = datos.length;
+
+    // Calcular sumatorias
+    let sum_x = 0;
+    let sum_y = 0;
+    let sum_xy = 0;
+    let sum_x_squared = 0;
+
+    datos.forEach((y, x) => {
+        sum_x += x;
+        sum_y += y;
+        sum_xy += x * y;
+        sum_x_squared += x * x;
+    });
+
+    // Calcular pendiente (m) y ordenada al origen (b)
+    const m = (n * sum_xy - sum_x * sum_y) / (n * sum_x_squared - sum_x * sum_x);
+    const b = (sum_y - m * sum_x) / n;
+
+    // Generar puntos para la línea de tendencia
+    const lineaTendencia = datos.map((y, x) => m * x + b);
+
+    return lineaTendencia;
+        }
