@@ -17,14 +17,24 @@
                             }
                             $oldWindows[$iSZ]='Mac'.$iIntp.$ndc;
                         @endphp
-
-                         <div class="p-2 {{$gSize[$iSZ]}}" wire:click="cambia({{$iSZ}})" id="Mac{{$iIntp}}{{$ndc}}" >
-                    
-                            <h1 class="w-full block flex ">{{$informLs[$iIntp]}} </h1>
-                            <canvas id="vtn{{$iIntp}}{{$ndc}}" width="600" height="500"></canvas>
-
+                          
+                         <div class="p-1   {{$gSize[$iSZ]}}" wire:click="cambia('{{$iSZ}}')" id="Mac{{$iIntp}}{{$ndc}}" >
+                            <div class="flex">
+                                <h1 class="w-full px-1  mb-0 mt-2 font-bold bg-gray-400  text-black col-span-2 ">{{$informLs[$iIntp]}} </h1>
+                                @if ($gSize[$iSZ]<>"")
+                                <button 
+                                    class="p-1 m-1 align-middle items-center justify-center  border-solid border-2 border-indigo-800
+                                    shadow-2xl sm:rounded-lg">Close
+                                </button>
+                                @endif
+                            </div>
+                            <canvas id="vtn{{$iIntp}}{{$ndc}}" width="600" height="500" 
+                            @if ($gSize[$iSZ]<>"")
+                            class="p-12  col-span-1"
+                            @endif
+                            ></canvas>
                         </div>
-
+                        
                         @php
                              $iSZ++;
                         @endphp
@@ -89,11 +99,10 @@
         @php
             echo "<script defer>"; 
             foreach ($xScripts as $key => $value) {
-            echo $value;
+                echo $value;
             }
             echo "</script>"; 
        @endphp
-        
 </div>
 
                

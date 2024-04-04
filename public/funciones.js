@@ -13,7 +13,7 @@
                     label: labels[i],
                     data: element,
                     borderColor: ((tipo=="Tre")&&(i>0))?"gray":generarColorAleatorio(i),
-                    pointRadius: ((tipo=="Tre")&&(i>0))?0:4,
+                    pointRadius: ((tipo=="Tre")&&(i>0))?0:3,
                     fill: false
                 }
             xDato.push(item);    

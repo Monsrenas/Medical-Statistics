@@ -16,11 +16,8 @@
               
                 <script src="/funciones.js"></script>
 
-        <!-- Prueba sin vite  php artisan serve --host=0.0.0.0 --port=8000 -->    
-                <script src="/build/assets/app-04880d7b.js"></script>
-                <link rel="stylesheet" href="/build/assets/app-ea7adf5b.css">
-
         <!-- Scripts -->
+        <link rel="stylesheet" href="myStyles.css">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->

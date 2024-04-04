@@ -17,9 +17,9 @@
                             }
                             $oldWindows[$iSZ]='Mac'.$iIntp.$ndc;
                         @endphp
-
+                                
                         <div class="p-2 w-full {{$gSize[$iSZ]}}"  id="Tre{{$iIntp}}{{$ndc}}" style="max-width: 100%; overflow-x:scroll;" >
-                            <h1 class="w-full block  ">{{$informLs[$iIntp]}} </h1>
+                            <h2 class="w-full px-1  mb-0 mt-2 font-bold bg-gray-400  text-black">{{$informLs[$iIntp]}}</h2>
                             <canvas class="w-full" id="vtn{{$iIntp}}{{$ndc}}"  ></canvas>
                         </div>
 
